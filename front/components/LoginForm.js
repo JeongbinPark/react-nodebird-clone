@@ -1,8 +1,13 @@
 import React, {useState, useCallback} from 'react';
 import Link from 'next/link';
+import styled from 'styled-components';
 import { Form, Input, Button, Space } from 'antd';
 
-const LoginForm = () => {
+const StyledForm = styled(Form)`
+  padding : 10px;
+`
+
+const LoginForm = ({setIsLoggedIn}) => {
   const [UserId, setUserId] = useState('');
   const [UserPassword, setUserPassword] = useState('');
 
@@ -13,8 +18,13 @@ const LoginForm = () => {
     setUserPassword(e.target.value)
   },[]);
 
+  const onSubmitForm = useCallback(()=>{
+    setIsLoggedIn(true);
+  },[UserId, UserPassword])
+
   return(
-    <Form
+    <StyledForm
+    onFinish={onSubmitForm}
     autoComplete="off"
     >
       <Form.Item
@@ -39,7 +49,7 @@ const LoginForm = () => {
         <Link href="/signup"><a><Button>회원가입</Button></a></Link>
         </Space>
       </Form.Item>
-    </Form>
+    </StyledForm>
   );
 }
 
