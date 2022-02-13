@@ -1,5 +1,6 @@
-import React, {useState, useCallback} from 'react';
+import React, {useCallback} from 'react';
 import Link from 'next/link';
+import useInput from '../hooks/useInput';
 import styled from 'styled-components';
 import { Form, Input, Button, Space } from 'antd';
 
@@ -8,15 +9,8 @@ const StyledForm = styled(Form)`
 `
 
 const LoginForm = ({setIsLoggedIn}) => {
-  const [UserId, setUserId] = useState('');
-  const [UserPassword, setUserPassword] = useState('');
-
-  const onChangeId = useCallback((e) => {
-    setUserId(e.target.value)
-  },[]);
-  const onChangePassword = useCallback((e) => {
-    setUserPassword(e.target.value)
-  },[]);
+  const [UserId, onChangeId] = useInput('');
+  const [UserPassword, onChangePassword] = useInput('');
 
   const onSubmitForm = useCallback(()=>{
     setIsLoggedIn(true);
