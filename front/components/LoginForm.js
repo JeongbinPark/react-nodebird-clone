@@ -1,19 +1,21 @@
 import React, {useCallback} from 'react';
 import Link from 'next/link';
 import useInput from '../hooks/useInput';
+import { useDispatch } from 'react-redux';
+import { login } from '../actions';
 import styled from 'styled-components';
 import { Form, Input, Button, Space } from 'antd';
-
 const StyledForm = styled(Form)`
   padding : 10px;
 `
 
-const LoginForm = ({setIsLoggedIn}) => {
+const LoginForm = () => {
+  const dispatch = useDispatch()
   const [UserId, onChangeId] = useInput('');
   const [UserPassword, onChangePassword] = useInput('');
 
   const onSubmitForm = useCallback(()=>{
-    setIsLoggedIn(true);
+    dispatch(login({UserId, UserPassword}))
   },[UserId, UserPassword])
 
   return(
