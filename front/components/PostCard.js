@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import PostImage from './PostImage';
 import Comments from './Comments';
+import PostCardContent from './PostCardContent';
 import { Card, Avatar, Popover, Button } from 'antd';
 import { RetweetOutlined, HeartOutlined, HeartTwoTone, CommentOutlined, EllipsisOutlined } from '@ant-design/icons';
 
@@ -47,7 +48,7 @@ const PostCard = ({ post }) => {
       <Card.Meta 
         avatar={<Avatar>{post.User.nickname[0]}</Avatar>}
         title={post.User.nickname}
-        description={post.content}
+        description={<PostCardContent postData={post.content}></PostCardContent>}
       />
     </Card>
     {commentsFormOpened && <Comments post={post}/>}
