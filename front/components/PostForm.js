@@ -2,7 +2,7 @@ import React, { useState, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input, Button } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-import { addPost } from '../actions';
+import { addPostRequestAction } from '../actions';
 
 const PostForm = () => {
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ const PostForm = () => {
     setText(e.target.value);
   },[]);
   const onSubmit = useCallback(()=>{
-    dispatch(addPost());
+    dispatch(addPostRequestAction());
     setText("");
   },[])
   const onClickImageUpload = useCallback(()=>{

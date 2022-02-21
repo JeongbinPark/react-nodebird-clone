@@ -1,8 +1,8 @@
 import React, {useCallback} from 'react';
 import Link from 'next/link';
 import useInput from '../hooks/useInput';
-import { useDispatch } from 'react-redux';
-import { login } from '../actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginRequestAction } from '../actions';
 import styled from 'styled-components';
 import { Form, Input, Button, Space } from 'antd';
 const StyledForm = styled(Form)`
@@ -10,12 +10,13 @@ const StyledForm = styled(Form)`
 `
 
 const LoginForm = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const isLoggingIn = useSelector((state)=> state.user.isLoggingIn);
   const [UserId, onChangeId] = useInput('');
   const [UserPassword, onChangePassword] = useInput('');
 
   const onSubmitForm = useCallback(()=>{
-    dispatch(login({UserId, UserPassword}))
+    dispatch(loginRequestAction({UserId, UserPassword}))
   },[UserId, UserPassword])
 
   return(
@@ -39,7 +40,7 @@ const LoginForm = () => {
       </Form.Item>
       <Form.Item>
         <Space >
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" loading={isLoggingIn}>
           로그인
         </Button>
         <Link href="/signup"><a><Button>회원가입</Button></a></Link>

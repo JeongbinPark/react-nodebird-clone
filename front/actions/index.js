@@ -1,17 +1,17 @@
-export const login = (data) => {
+export const loginRequestAction = (data) => {
   return {
-    type: "LOGIN",
+    type: "LOGIN_REQUEST",
     data,
   }
 }
-export const logout = () => {
+export const logoutRequestAction = () => {
   return {
-    type: "LOGOUT"
+    type: "LOGOUT_REQUEST"
   }
 }
 
-export const addPost = () => {
+export const addPostRequestAction = () => {
   return {
-    type: "ADD_POST"
+    type: "ADD_POST_REQUEST"
   }
 }
