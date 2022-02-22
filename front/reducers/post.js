@@ -1,3 +1,7 @@
+import {
+  ADD_POST_REQUEST, ADD_COMMENT_REQUEST
+} from '../actions/types';
+
 const initialState = {
   mainPosts:[{
     id: 1,
@@ -40,7 +44,7 @@ const dummyPost = {
 
 const postReducer = ((state = initialState, action)=> {
   switch (action.type){
-    case 'ADD_POST':
+    case ADD_POST_REQUEST:
       return {
         ...state,
         mainPosts: [dummyPost, ...state.mainPosts],
