@@ -1,5 +1,6 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import useInput from '../hooks/useInput';
 import { Form, Input, Button } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { addPostRequestAction } from '../actions';
@@ -8,10 +9,7 @@ const PostForm = () => {
   const dispatch = useDispatch();
   const imageInput = useRef();
   const { imagePaths } = useSelector((state)=>state.post);
-  const [text, setText] = useState('');
-  const onChangeText = useCallback((e) => {
-    setText(e.target.value);
-  },[]);
+  const [text, onChangeText, setText] = useInput('');
   const onSubmit = useCallback(()=>{
     dispatch(addPostRequestAction());
     setText("");
