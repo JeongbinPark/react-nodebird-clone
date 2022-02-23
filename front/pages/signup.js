@@ -13,7 +13,7 @@ const ErrorMessage = styled.div`
 
 const Signup = () => {
   const dispatch = useDispatch();
-  const [userId, onChangeUserId] = useInput('');
+  const [userEmail, onChangeUserEmail] = useInput('');
   const [userPassword, onChangeUserPassword] = useInput('');
   const [userNickname, onChangeUserNickname] = useInput('');
   const [userConfirmPassword, setUserConfirmPassword] = useState('');
@@ -32,7 +32,7 @@ const Signup = () => {
   const onSubmit = useCallback(()=>{
     if(userPassword !== userConfirmPassword) return setUserPasswordError(true);
     if(!term) return setTermError(true);
-    dispatch(signupRequestAction({userId, userPassword, userNickname}));
+    dispatch(signupRequestAction({userEmail, userPassword, userNickname}));
   },[userPassword, userConfirmPassword, term]);
 
   return (
@@ -46,14 +46,14 @@ const Signup = () => {
           scrollToFirstError
         >
           <Form.Item
-            label="아이디"
-            name="id"
+            label="이메일"
+            name="email"
             rules={[
               // {type: 'email', message: 'The input is not valid E-mail!'},
               {required: true, message: '이메일을 입력해주세요.' }
             ]}
           >
-            <Input value={userId} onChange={onChangeUserId} required />
+            <Input value={userEmail} onChange={onChangeUserEmail} required />
           </Form.Item>
           <Form.Item
             label="비밀번호"

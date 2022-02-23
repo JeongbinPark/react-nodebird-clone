@@ -12,12 +12,12 @@ const StyledForm = styled(Form)`
 const LoginForm = () => {
   const dispatch = useDispatch();
   const loginLoading = useSelector((state)=> state.user.loginLoading);
-  const [UserId, onChangeId] = useInput('');
+  const [UserEmail, onChangeEmail] = useInput('');
   const [UserPassword, onChangePassword] = useInput('');
 
   const onSubmitForm = useCallback(()=>{
-    dispatch(loginRequestAction({UserId, UserPassword}))
-  },[UserId, UserPassword])
+    dispatch(loginRequestAction({UserEmail, UserPassword}))
+  },[UserEmail, UserPassword])
 
   return(
     <StyledForm
@@ -25,11 +25,11 @@ const LoginForm = () => {
     autoComplete="off"
     >
       <Form.Item
-        label="아이디"
-        name="id"
+        label="이메일"
+        name="email"
         rules={[{required: true, message: '이메일을 입력해주세요.' }]}
       >
-        <Input value={UserId} onChange={onChangeId} required/>
+        <Input value={UserEmail} onChange={onChangeEmail} required/>
       </Form.Item>
       <Form.Item
         label="비밀번호"

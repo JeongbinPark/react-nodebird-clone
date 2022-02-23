@@ -10,7 +10,7 @@ import { RetweetOutlined, HeartOutlined, HeartTwoTone, CommentOutlined, Ellipsis
 const PostCard = ({ post }) => {
   const [liked, setLiked] = useState(false);
   const [commentsFormOpened, setCommentsFormOpened] = useState(false);
-  const meId = useSelector((state)=>state.user.me?.UserId);
+  const meId = useSelector((state)=>state.user.me?.id);
   const onToggleLiked = useCallback(()=>{
     setLiked((liked)=>!liked);
   })
