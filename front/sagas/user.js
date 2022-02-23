@@ -43,7 +43,7 @@ function* logout(){
 		});
 	} catch (err){
 		yield put({
-			type: LOGIN_FAILURE,
+			type: LOGOUT_FAILURE,
 			data: err.response.data
 		});
 	}
