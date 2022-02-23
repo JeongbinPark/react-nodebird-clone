@@ -7,47 +7,79 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  isLoggingIn: false,
-  isLoggingOut: false,
-  isLoggedIn: false,
+  loginLoading: false, loginDone: false, loginError: null,
+  logoutLoading: false, logoutDone: false, logoutError: null,
+  signupLoading: false, signupDone: false, signupError: null,
   me: null
 }
+
+const dummyData = (data) => ({
+  ...data,
+  id: 1,
+  nickname: 'FeynP',
+  Posts : [],
+  Followings : [],
+  Followers : [],
+})
+
 
 const userReducer = ((state = initialState, action)=> {
   switch (action.type){
     case LOGIN_REQUEST: 
       return {
         ...state.user,
-        isLoggingIn: true,
+        loginLoading: true,
+        loginError: null,
       };
     case LOGIN_SUCCESS: 
       return {
         ...state.user,
-        isLoggingIn: false,
-        isLoggedIn: true,
-        me: {...action.data, nickname: 'feynP'}
+        loginLoading: false,
+        loginDone: true,
+        me: dummyData(action.data)
       };
     case LOGIN_FAILURE: 
       return {
         ...state.user,
-        isLoggingIn: false,
+        loginLoading: false,
+        loginError: action.error,
       };
     case LOGOUT_REQUEST: 
       return {
         ...state.user,
-        isLoggingOut: true,
+        logoutLoading: true,
+        logoutError: null,
       };
     case LOGOUT_SUCCESS: 
       return {
         ...state.user,
-        isLoggingOut: false,
-        isLoggedIn: false,
+        logoutLoading: false,
+        logoutDone: false,
         me: null
       };
     case LOGOUT_FAILURE: 
       return {
         ...state.user,
-        isLoggingOut: false,
+        logoutLoading: false,
+        logoutError: action.error,
+      };
+    case SIGNUP_REQUEST: 
+      return {
+        ...state.user,
+        signupLoading: true,
+        signupError: null,
+      };
+    case SIGNUP_SUCCESS: 
+      return {
+        ...state.user,
+        signupLoading: false,
+        signupDone: false,
+      };
+    case SIGNUP_FAILURE: 
+      return {
+        ...state.user,
+        signupLoading: false,
+        signupError: action.error,
       };
     default: return state;
   }

@@ -4,7 +4,7 @@ import { logoutRequestAction } from '../actions';
 import { Card, Avatar, Button} from 'antd';
 
 const UserProfile = () =>{
-  const {me, isLoggingOut} = useSelector((state)=>state.user);
+  const {me, logoutLoading} = useSelector((state)=>state.user);
   const dispatch = useDispatch();
   const onLogOut = useCallback(()=>{
     dispatch(logoutRequestAction());
@@ -13,16 +13,16 @@ const UserProfile = () =>{
   return(
     <Card
       actions={[
-        <div key="twit"> Twit<br /> 0 </div>,
-        <div key="followings"> followings<br /> 0 </div>,
-        <div key="followers"> followers<br /> 0 </div>
+        <div key="twit"> Twit<br /> {me.Posts.length} </div>,
+        <div key="followings"> followings<br /> {me.Followings.length} </div>,
+        <div key="followers"> followers<br /> {me.Followers.length} </div>
       ]}
     >
       <Card.Meta 
        avatar={<Avatar>{me.nickname[0]}</Avatar>}
        title={me.nickname}
       />
-      <Button onClick={onLogOut} loading={isLoggingOut}>로그아웃</Button>
+      <Button onClick={onLogOut} loading={logoutLoading}>로그아웃</Button>
     </Card>
   );
 }

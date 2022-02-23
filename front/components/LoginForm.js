@@ -11,7 +11,7 @@ const StyledForm = styled(Form)`
 
 const LoginForm = () => {
   const dispatch = useDispatch();
-  const isLoggingIn = useSelector((state)=> state.user.isLoggingIn);
+  const loginLoading = useSelector((state)=> state.user.loginLoading);
   const [UserId, onChangeId] = useInput('');
   const [UserPassword, onChangePassword] = useInput('');
 
@@ -40,7 +40,7 @@ const LoginForm = () => {
       </Form.Item>
       <Form.Item>
         <Space >
-        <Button type="primary" htmlType="submit" loading={isLoggingIn}>
+        <Button type="primary" htmlType="submit" loading={loginLoading}>
           로그인
         </Button>
         <Link href="/signup"><a><Button>회원가입</Button></a></Link>
