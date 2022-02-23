@@ -1,7 +1,9 @@
 import React, { useState, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import AppLayout from "../components/AppLayout";
 import Head from "next/head";
 import useInput from '../hooks/useInput';
+import { signupRequestAction } from '../actions';
 import styled from 'styled-components';
 import { Form, Input, Button, Checkbox } from 'antd';
 
@@ -10,6 +12,7 @@ const ErrorMessage = styled.div`
 `
 
 const Signup = () => {
+  const dispatch = useDispatch();
   const [userId, onChangeUserId] = useInput('');
   const [userPassword, onChangeUserPassword] = useInput('');
   const [userNickname, onChangeUserNickname] = useInput('');
@@ -29,7 +32,7 @@ const Signup = () => {
   const onSubmit = useCallback(()=>{
     if(userPassword !== userConfirmPassword) return setUserPasswordError(true);
     if(!term) return setTermError(true);
-    console.log(userId, userPassword, term);
+    dispatch(signupRequestAction({userId, userPassword, userNickname}));
   },[userPassword, userConfirmPassword, term]);
 
   return (

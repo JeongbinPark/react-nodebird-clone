@@ -1,5 +1,5 @@
 import {
-  LOGIN_REQUEST, LOGOUT_REQUEST, ADD_POST_REQUEST
+  LOGIN_REQUEST, LOGOUT_REQUEST, SIGNUP_REQUEST, ADD_POST_REQUEST
 } from './types';
 
 export const loginRequestAction = (data) => {
@@ -11,6 +11,12 @@ export const loginRequestAction = (data) => {
 export const logoutRequestAction = () => {
   return {
     type: LOGOUT_REQUEST
+  }
+}
+export const signupRequestAction = (data) => {
+  return {
+    type: SIGNUP_REQUEST,
+    data,
   }
 }
 
