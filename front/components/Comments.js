@@ -6,7 +6,7 @@ import { List, Comment, Avatar } from 'antd';
 const Comments = ({ post } ) => {
   return (
     <>
-      <CommentForm />
+      <CommentForm postId={ post.id }/>
       <List
         header={`${post.Comments.length }개의 댓글`}
         itemLayout="horizontal"

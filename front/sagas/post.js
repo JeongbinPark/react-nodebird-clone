@@ -9,6 +9,10 @@ function addPostApi(data){
 	return axios.post('/api/post', data);
 }
 
+function addCommentApi(data){
+	return axios.post(`/api/post/${data.postId}/comment`, data);
+}
+
 function* addPost(action){
 	try {
 		//const result = yield call(addPostApi, action.data);
@@ -25,13 +29,35 @@ function* addPost(action){
 	}
 }
 
+function* addComment(action){
+	try {
+		//const result = yield call(addCommentApi, action.data);
+    yield delay(1000);
+		yield put({
+			type: ADD_COMMENT_SUCCESS,
+			// data: result.data
+			data: action.data
+		});
+	} catch (err){
+		yield put({
+			type: ADD_COMMENT_FAILURE,
+			data: err.response.data
+		});
+	}
+}
+
 function* watchAddPost(){
 	yield takeLatest(ADD_POST_REQUEST, addPost);
+}
+
+function* watchAddComment(){
+	yield takeLatest(ADD_COMMENT_REQUEST, addComment);
 }
 
 
 export default function* userSaga(){
 	yield all([
 		fork(watchAddPost),
+		fork(watchAddComment),
 	])
 }

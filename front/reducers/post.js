@@ -44,6 +44,14 @@ const dummyPost = {
   Comments: []
 }
 
+const dummyComment = (data) => ({
+  User: {
+    id: data.userId,
+    nickname: 'ABC',
+  },
+  content: data.commentText,
+})
+
 const postReducer = ((state = initialState, action)=> {
   switch (action.type){
     case ADD_POST_REQUEST:
@@ -72,12 +80,18 @@ const postReducer = ((state = initialState, action)=> {
         addCommentLoading: true,
         addCommentError: null,
       };
-    case ADD_COMMENT_SUCCESS:
+    case ADD_COMMENT_SUCCESS: {
+      let post = { ...state.mainPosts[0] };
+      post.Comments = [dummyComment(action.data), ...post.Comments];
+      let mainPosts = [...state.mainPosts];
+      mainPosts[0] = post;
       return {
         ...state,
+        mainPosts,
         addCommentLoading: false,
         addCommentDone: true,
       };
+    }
     case ADD_COMMENT_FAILURE:
       return {
         ...state,
