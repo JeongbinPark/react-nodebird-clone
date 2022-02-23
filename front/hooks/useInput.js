@@ -5,5 +5,5 @@ export default (initialState = null)=>{
   const onChangeHandler = useCallback((e) => {
     setValue(e.target.value);
   },[]);
-  return [value, onChangeHandler];
+  return [value, onChangeHandler, setValue];
 }
