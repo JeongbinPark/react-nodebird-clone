@@ -33,16 +33,16 @@ const initialState = {
   addCommentLoading: false, addCommentDone: false, addCommentError: null,
 }
 
-const dummyPost = {
+const dummyPost = (data) => ({
   id: 2,
-  content: 'Dummy Post.',
+  content: data.text,
   User: {
     id: 1,
     nickname: "JB",
   },
   Images: [],
   Comments: []
-}
+})
 
 const dummyComment = (data) => ({
   User: {
@@ -63,7 +63,7 @@ const postReducer = ((state = initialState, action)=> {
     case ADD_POST_SUCCESS:
       return {
         ...state,
-        mainPosts: [dummyPost, ...state.mainPosts],
+        mainPosts: [dummyPost(action.data), ...state.mainPosts],
         addPostLoading: false,
         addPostDone: true,
       };
