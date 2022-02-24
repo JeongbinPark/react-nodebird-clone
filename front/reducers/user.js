@@ -4,7 +4,7 @@ import {
   SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE,
   FOLLOW_REQUEST, FOLLOW_SUCCESS, FOLLOW_FAILURE,
   UNFOLLOW_REQUEST, UNFOLLOW_SUCCESS, UNFOLLOW_FAILURE,
-  ADD_POST_TO_ME,
+  ADD_POST_TO_ME, REMOVE_POST_OF_ME
 } from '../actions/types';
 
 const initialState = {
@@ -83,13 +83,21 @@ const userReducer = ((state = initialState, action)=> {
         signupError: action.error,
       };
     case ADD_POST_TO_ME: 
-    return {
-      ...state,
-      me: {
-        ...state.me,
-        Posts : [ {id: action.data} , ...state.me.Posts],
-      }
-    };
+      return {
+        ...state,
+        me: {
+          ...state.me,
+          Posts : [ {id: action.data} , ...state.me.Posts],
+        }
+      };
+    case REMOVE_POST_OF_ME: 
+      return {
+        ...state,
+        me: {
+          ...state.me,
+          Posts : state.me.Posts.filter((v) => v.id !== action.data),
+        }
+      };
     default: return state;
   }
 });

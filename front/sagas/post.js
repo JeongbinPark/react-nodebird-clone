@@ -4,7 +4,8 @@ import {
   ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE,
 	REMOVE_POST_REQUEST, REMOVE_POST_SUCCESS, REMOVE_POST_FAILURE,
 	ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_COMMENT_FAILURE,
-	ADD_POST_TO_ME
+	ADD_POST_TO_ME,
+	REMOVE_POST_OF_ME
 } from '../actions/types';
 import shortId from 'shortid';
 
@@ -49,11 +50,16 @@ function* removePost(action){
 	try {
 		//const result = yield call(removePostApi, action.data);
     yield delay(1000);
+		const id = action.data;
 		yield put({
 			type: REMOVE_POST_SUCCESS,
 			// data: result.data
-			data: action.data
+			data: id
 		});
+		yield put ({
+			type: REMOVE_POST_OF_ME,
+			data: id
+		})
 	} catch (err){
 		yield put({
 			type: REMOVE_POST_FAILURE,
