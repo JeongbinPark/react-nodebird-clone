@@ -33,7 +33,7 @@ const Signup = () => {
     if(userPassword !== userConfirmPassword) return setUserPasswordError(true);
     if(!term) return setTermError(true);
     dispatch(signupRequestAction({userEmail, userPassword, userNickname}));
-  },[userPassword, userConfirmPassword, term]);
+  },[userEmail, userPassword, userNickname, userConfirmPassword, term]);
 
   return (
     <>
