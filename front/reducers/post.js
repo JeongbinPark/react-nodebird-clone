@@ -1,5 +1,6 @@
 import {
   ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE,
+  REMOVE_POST_REQUEST, REMOVE_POST_SUCCESS, REMOVE_POST_FAILURE,
   ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_COMMENT_FAILURE
 } from '../actions/types';
 
@@ -30,6 +31,7 @@ const initialState = {
   }],
   imagePaths:[],
   addPostLoading: false, addPostDone: false,  addPostError: null,
+  removePostLoading: false, removePostDone: false,  removePostError: null,
   addCommentLoading: false, addCommentDone: false, addCommentError: null,
 }
 
@@ -74,6 +76,26 @@ const postReducer = ((state = initialState, action)=> {
         ...state,
         addPostLoading: false,
         addPostError: action.error,
+      };
+    case REMOVE_POST_REQUEST:
+      return {
+        ...state,
+        removePostLoading: true,
+        removePostDone: false,
+        removePostError: null,
+      };
+    case REMOVE_POST_SUCCESS:
+      return {
+        ...state,
+        mainPosts: state.mainPosts.filter((v)=> v.id !== action.data),
+        removePostLoading: false,
+        removePostDone: true,
+      };
+    case REMOVE_POST_FAILURE:
+      return {
+        ...state,
+        removePostLoading: false,
+        removePostError: action.error,
       };
     case ADD_COMMENT_REQUEST:
       return {

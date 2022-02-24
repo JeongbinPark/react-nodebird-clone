@@ -1,13 +1,15 @@
 import React, { useState, useCallback } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import PostImage from './PostImage';
 import Comments from './Comments';
 import PostCardContent from './PostCardContent';
+import { removePostRequestAction } from '../actions'
 import { Card, Avatar, Popover, Button } from 'antd';
 import { RetweetOutlined, HeartOutlined, HeartTwoTone, CommentOutlined, EllipsisOutlined } from '@ant-design/icons';
 
 const PostCard = ({ post }) => {
+  const dispatch = useDispatch();
   const [liked, setLiked] = useState(false);
   const [commentsFormOpened, setCommentsFormOpened] = useState(false);
   const meId = useSelector((state)=>state.user.me?.id);
@@ -17,6 +19,9 @@ const PostCard = ({ post }) => {
   const onToggleComment = useCallback(()=>{
     setCommentsFormOpened((prev)=>!prev);
   }, []);
+  const onRemovePost = useCallback(()=>{
+    dispatch(removePostRequestAction(post.id));
+  },[]);
 
   return (
     <>
@@ -35,7 +40,7 @@ const PostCard = ({ post }) => {
             ?
             <>
             <Button>수정</Button>
-            <Button>삭제</Button>
+            <Button onClick={onRemovePost}>삭제</Button>
             </>
             :
             <Button>신고</Button>}
