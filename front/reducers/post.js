@@ -34,8 +34,8 @@ const initialState = {
 }
 
 const dummyPost = (data) => ({
-  id: 2,
-  content: data.text,
+  id: data.id,
+  content: data.data.text,
   User: {
     id: 1,
     nickname: "JB",
@@ -58,6 +58,7 @@ const postReducer = ((state = initialState, action)=> {
       return {
         ...state,
         addPostLoading: true,
+        addPostDone: false,
         addPostError: null,
       };
     case ADD_POST_SUCCESS:

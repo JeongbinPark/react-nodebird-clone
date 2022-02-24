@@ -4,6 +4,7 @@ import {
   SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE,
   FOLLOW_REQUEST, FOLLOW_SUCCESS, FOLLOW_FAILURE,
   UNFOLLOW_REQUEST, UNFOLLOW_SUCCESS, UNFOLLOW_FAILURE,
+  ADD_POST_TO_ME,
 } from '../actions/types';
 
 const initialState = {
@@ -17,7 +18,7 @@ const dummyData = (data) => ({
   ...data,
   id: 1,
   nickname: 'FeynP',
-  Posts : [],
+  Posts : [{ id: 1 }],
   Followings : [],
   Followers : [],
 })
@@ -81,6 +82,14 @@ const userReducer = ((state = initialState, action)=> {
         signupLoading: false,
         signupError: action.error,
       };
+    case ADD_POST_TO_ME: 
+    return {
+      ...state,
+      me: {
+        ...state.me,
+        Posts : [ {id: action.data} , ...state.me.Posts],
+      }
+    };
     default: return state;
   }
 });
