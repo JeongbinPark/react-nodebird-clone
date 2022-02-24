@@ -27,57 +27,57 @@ const userReducer = ((state = initialState, action)=> {
   switch (action.type){
     case LOGIN_REQUEST: 
       return {
-        ...state.user,
+        ...state,
         loginLoading: true,
         loginError: null,
       };
     case LOGIN_SUCCESS: 
       return {
-        ...state.user,
+        ...state,
         loginLoading: false,
         loginDone: true,
         me: dummyData(action.data)
       };
     case LOGIN_FAILURE: 
       return {
-        ...state.user,
+        ...state,
         loginLoading: false,
         loginError: action.error,
       };
     case LOGOUT_REQUEST: 
       return {
-        ...state.user,
+        ...state,
         logoutLoading: true,
         logoutError: null,
       };
     case LOGOUT_SUCCESS: 
       return {
-        ...state.user,
+        ...state,
         logoutLoading: false,
         logoutDone: false,
         me: null
       };
     case LOGOUT_FAILURE: 
       return {
-        ...state.user,
+        ...state,
         logoutLoading: false,
         logoutError: action.error,
       };
     case SIGNUP_REQUEST: 
       return {
-        ...state.user,
+        ...state,
         signupLoading: true,
         signupError: null,
       };
     case SIGNUP_SUCCESS: 
       return {
-        ...state.user,
+        ...state,
         signupLoading: false,
         signupDone: false,
       };
     case SIGNUP_FAILURE: 
       return {
-        ...state.user,
+        ...state,
         signupLoading: false,
         signupError: action.error,
       };
