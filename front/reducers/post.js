@@ -57,7 +57,6 @@ const postReducer = ((state = initialState, action)=> {
     case ADD_POST_REQUEST:
       return {
         ...state,
-        mainPosts: [dummyPost, ...state.mainPosts],
         addPostLoading: true,
         addPostError: null,
       };
