@@ -4,6 +4,7 @@ import {
   LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE,
   LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILURE,
   SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE,
+	CHANGE_NICKNAME_REQUEST, CHANGE_NICKNAME_SUCCESS, CHANGE_NICKNAME_FAILURE,
   FOLLOW_REQUEST, FOLLOW_SUCCESS, FOLLOW_FAILURE,
   UNFOLLOW_REQUEST, UNFOLLOW_SUCCESS, UNFOLLOW_FAILURE,
 } from '../actions/types';
@@ -20,6 +21,11 @@ function logoutApi(){
 function signupApi(data){
 	return axios.post('/api/signup', data);
 }
+
+function changeNicknameApi(data){
+	return axios.post('/api/user/nickname', data);
+}
+
 function* login(action){
 	try {
 		//const result = yield call(loginApi, action.data);
@@ -66,6 +72,22 @@ function* signup(action){
 	}
 }
 
+function* changeNickname(action){
+	try {
+		//const result = yield call(changeNicknameApi, action.data);
+    yield delay(1000);
+		yield put({
+			type: CHANGE_NICKNAME_SUCCESS,
+			data: action.data
+		});
+	} catch (err){
+		yield put({
+			type: CHANGE_NICKNAME_FAILURE,
+			error: err.response.data
+		});
+	}
+}
+
 function* watchLogin(){
 	yield takeLatest(LOGIN_REQUEST, login);
 }
@@ -78,11 +100,16 @@ function* watchSignup(){
 	yield takeLatest(SIGNUP_REQUEST, signup);
 }
 
+function* watchChangeNickname(){
+	yield takeLatest(CHANGE_NICKNAME_REQUEST, changeNickname);
+}
+
 
 export default function* userSaga(){
 	yield all([
 		fork(watchLogin),
 		fork(watchLogout),
 		fork(watchSignup),
+		fork(watchChangeNickname),
 	])
 }

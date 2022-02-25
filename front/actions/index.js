@@ -1,6 +1,6 @@
 import {
   LOGIN_REQUEST, LOGOUT_REQUEST, SIGNUP_REQUEST,
-  ADD_POST_REQUEST, REMOVE_POST_REQUEST, ADD_COMMENT_REQUEST
+  ADD_POST_REQUEST, REMOVE_POST_REQUEST, ADD_COMMENT_REQUEST, CHANGE_NICKNAME_REQUEST
 } from './types';
 
 export const loginRequestAction = (data) => {
@@ -20,6 +20,13 @@ export const signupRequestAction = (data) => {
     data,
   }
 }
+export const changeNicknameRequestAction = (data) => {
+  return {
+    type: CHANGE_NICKNAME_REQUEST,
+    data,
+  }
+}
+
 
 export const addPostRequestAction = (data) => {
   return {

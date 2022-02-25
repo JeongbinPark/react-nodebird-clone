@@ -2,6 +2,7 @@ import {
   LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE,
   LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILURE,
   SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE,
+  CHANGE_NICKNAME_REQUEST, CHANGE_NICKNAME_SUCCESS, CHANGE_NICKNAME_FAILURE,
   FOLLOW_REQUEST, FOLLOW_SUCCESS, FOLLOW_FAILURE,
   UNFOLLOW_REQUEST, UNFOLLOW_SUCCESS, UNFOLLOW_FAILURE,
   ADD_POST_TO_ME, REMOVE_POST_OF_ME
@@ -11,6 +12,7 @@ const initialState = {
   loginLoading: false, loginDone: false, loginError: null,
   logoutLoading: false, logoutDone: false, logoutError: null,
   signupLoading: false, signupDone: false, signupError: null,
+  changeNicknameLoading: false, changeNicknameDone: false, changeNicknameError: null,
   me: null
 }
 
@@ -85,6 +87,29 @@ const userReducer = ((state = initialState, action)=> {
         signupLoading: false,
         signupError: action.error,
       };
+    case CHANGE_NICKNAME_REQUEST: 
+    return {
+      ...state,
+      changeNicknameLoading: true,
+      changeNicknameDone: false,
+      changeNicknameError: null,
+    };
+  case CHANGE_NICKNAME_SUCCESS: 
+    return {
+      ...state,
+      changeNicknameLoading: false,
+      changeNicknameDone: true,
+      me: {
+        ...state.me,
+        nickname: action.data
+      }
+    };
+  case CHANGE_NICKNAME_FAILURE: 
+    return {
+      ...state,
+      changeNicknameLoading: false,
+      changeNicknameError: action.error,
+    };
     case ADD_POST_TO_ME: 
       return {
         ...state,
