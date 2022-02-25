@@ -4,6 +4,8 @@ import {
   ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_COMMENT_FAILURE
 } from '../actions/types';
 import produce from 'immer';
+import shortId from 'shortid';
+import faker from 'faker';
 
 const initialState = {
   mainPosts:[{
@@ -35,6 +37,31 @@ const initialState = {
   removePostLoading: false, removePostDone: false,  removePostError: null,
   addCommentLoading: false, addCommentDone: false, addCommentError: null,
 }
+
+initialState.mainPosts = initialState.mainPosts.concat(
+  Array(20).fill().map(()=>({
+    id: shortId.generate(),
+    User: {
+      id: shortId.generate(),
+      nickname: faker.name.findName(),
+    },
+    content: faker.lorem.paragraph(),
+    Images:[{
+      src: faker.image.image(),
+    }],
+    Comments: [{
+      User: {
+        nickname: faker.name.findName(),
+      },
+      content: faker.lorem.sentence(),
+    }, {
+      User: {
+        nickname: faker.name.findName(),
+      },
+      content: faker.lorem.sentence()
+    }]
+  }))
+)
 
 const dummyPost = (data) => ({
   id: data.id,
