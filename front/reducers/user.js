@@ -30,6 +30,7 @@ const userReducer = ((state = initialState, action)=> {
       return {
         ...state,
         loginLoading: true,
+        loginDone: false,
         loginError: null,
       };
     case LOGIN_SUCCESS: 
@@ -49,13 +50,14 @@ const userReducer = ((state = initialState, action)=> {
       return {
         ...state,
         logoutLoading: true,
+        logoutDone: false,
         logoutError: null,
       };
     case LOGOUT_SUCCESS: 
       return {
         ...state,
         logoutLoading: false,
-        logoutDone: false,
+        logoutDone: true,
         me: null
       };
     case LOGOUT_FAILURE: 
@@ -68,13 +70,14 @@ const userReducer = ((state = initialState, action)=> {
       return {
         ...state,
         signupLoading: true,
+        signupDone: false,
         signupError: null,
       };
     case SIGNUP_SUCCESS: 
       return {
         ...state,
         signupLoading: false,
-        signupDone: false,
+        signupDone: true,
       };
     case SIGNUP_FAILURE: 
       return {
