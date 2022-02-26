@@ -13,14 +13,6 @@ function addPostApi(data){
 	return axios.post('/api/post', data);
 }
 
-function removePostApi(data){
-	return axios.delete('/api/post', data);
-}
-
-function addCommentApi(data){
-	return axios.post(`/api/post/${data.postId}/comment`, data);
-}
-
 function* addPost(action){
 	try {
 		//const result = yield call(addPostApi, action.data);
@@ -46,6 +38,15 @@ function* addPost(action){
 	}
 }
 
+function* watchAddPost(){
+	yield takeLatest(ADD_POST_REQUEST, addPost);
+}
+
+
+function removePostApi(data){
+	return axios.delete('/api/post', data);
+}
+
 function* removePost(action){
 	try {
 		//const result = yield call(removePostApi, action.data);
@@ -68,6 +69,15 @@ function* removePost(action){
 	}
 }
 
+function* watchRemovePost(){
+	yield takeLatest(REMOVE_POST_REQUEST, removePost);
+}
+
+
+function addCommentApi(data){
+	return axios.post(`/api/post/${data.postId}/comment`, data);
+}
+
 function* addComment(action){
 	try {
 		//const result = yield call(addCommentApi, action.data);
@@ -86,14 +96,6 @@ function* addComment(action){
 			data: err.response.data
 		});
 	}
-}
-
-function* watchAddPost(){
-	yield takeLatest(ADD_POST_REQUEST, addPost);
-}
-
-function* watchRemovePost(){
-	yield takeLatest(REMOVE_POST_REQUEST, removePost);
 }
 
 function* watchAddComment(){

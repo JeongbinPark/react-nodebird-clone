@@ -14,18 +14,6 @@ function loginApi(data){
 	return axios.post('/api/login', data);
 }
 
-function logoutApi(){
-	return axios.post('/api/logout');
-}
-
-function signupApi(data){
-	return axios.post('/api/signup', data);
-}
-
-function changeNicknameApi(data){
-	return axios.post('/api/user/nickname', data);
-}
-
 function* login(action){
 	try {
 		//const result = yield call(loginApi, action.data);
@@ -40,6 +28,15 @@ function* login(action){
 			error: err.response.data
 		});
 	}
+}
+
+function* watchLogin(){
+	yield takeLatest(LOGIN_REQUEST, login);
+}
+
+
+function logoutApi(){
+	return axios.post('/api/logout');
 }
 
 function* logout(){
@@ -57,6 +54,15 @@ function* logout(){
 	}
 }
 
+function* watchLogout(){
+	yield takeLatest(LOGOUT_REQUEST, logout);
+}
+
+
+function signupApi(data){
+	return axios.post('/api/signup', data);
+}
+
 function* signup(action){
 	try {
 		//const result = yield call(signupApi, action.data);
@@ -70,6 +76,15 @@ function* signup(action){
 			error: err.response.data
 		});
 	}
+}
+
+function* watchSignup(){
+	yield takeLatest(SIGNUP_REQUEST, signup);
+}
+
+
+function changeNicknameApi(data){
+	return axios.post('/api/user/nickname', data);
 }
 
 function* changeNickname(action){
@@ -86,18 +101,6 @@ function* changeNickname(action){
 			error: err.response.data
 		});
 	}
-}
-
-function* watchLogin(){
-	yield takeLatest(LOGIN_REQUEST, login);
-}
-
-function* watchLogout(){
-	yield takeLatest(LOGOUT_REQUEST, logout);
-}
-
-function* watchSignup(){
-	yield takeLatest(SIGNUP_REQUEST, signup);
 }
 
 function* watchChangeNickname(){
