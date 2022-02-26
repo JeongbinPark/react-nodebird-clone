@@ -1,4 +1,5 @@
 import {
+  LOAD_POSTS_REQUEST, LOAD_POSTS_SUCCESS, LOAD_POSTS_FAILURE,
   ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE,
   REMOVE_POST_REQUEST, REMOVE_POST_SUCCESS, REMOVE_POST_FAILURE,
   ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_COMMENT_FAILURE
@@ -33,13 +34,14 @@ const initialState = {
     }]
   }],
   imagePaths:[],
+  loadPostsLoading: false, loadPostsDone: false,  loadPostsError: null,
+  hasMorePosts: true,
   addPostLoading: false, addPostDone: false,  addPostError: null,
   removePostLoading: false, removePostDone: false,  removePostError: null,
   addCommentLoading: false, addCommentDone: false, addCommentError: null,
 }
 
-initialState.mainPosts = initialState.mainPosts.concat(
-  Array(20).fill().map(()=>({
+export const generateDummyPost = (number) => Array(number).fill().map(()=>({
     id: shortId.generate(),
     User: {
       id: shortId.generate(),
@@ -60,8 +62,9 @@ initialState.mainPosts = initialState.mainPosts.concat(
       },
       content: faker.lorem.sentence()
     }]
-  }))
-)
+  })
+);
+
 
 const dummyPost = (data) => ({
   id: data.id,
@@ -86,6 +89,22 @@ const dummyComment = (data) => ({
 const postReducer = (state = initialState, action) =>
   produce(state, (draft) => {
     switch (action.type){
+      case LOAD_POSTS_REQUEST:
+        draft.loadPostsLoading = true;
+        draft.loadPostsDone = false;
+        draft.loadPostsError = null;
+        break;
+      case LOAD_POSTS_SUCCESS:
+        draft.mainPosts = draft.mainPosts.concat(action.data);
+        draft.hasMorePosts = draft.mainPosts.length < 50;
+        draft.loadPostsLoading = false;
+        draft.loadPostsDone = true;
+        break;
+      case LOAD_POSTS_FAILURE:
+        draft.loadPostsLoading = false;
+        draft.loadPostsError = action.error;
+        break;
+
       case ADD_POST_REQUEST:
         draft.addPostLoading = true;
         draft.addPostDone = false;
