@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import PostImage from './PostImage';
 import Comments from './Comments';
 import PostCardContent from './PostCardContent';
+import FollowButton from './FollowButton';
 import { removePostRequestAction } from '../actions'
 import { Card, Avatar, Popover, Button } from 'antd';
 import { RetweetOutlined, HeartOutlined, HeartTwoTone, CommentOutlined, EllipsisOutlined } from '@ant-design/icons';
@@ -49,6 +50,7 @@ const PostCard = ({ post }) => {
          <EllipsisOutlined />
         </Popover>,
       ]}
+      extra={meId && <FollowButton post={post} />}
     >
       <Card.Meta 
         avatar={<Avatar>{post.User.nickname[0]}</Avatar>}
