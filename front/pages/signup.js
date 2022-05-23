@@ -1,7 +1,8 @@
-import React, { useState, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import AppLayout from "../components/AppLayout";
 import Head from "next/head";
+import Router from 'next/router';
 import useInput from '../hooks/useInput';
 import { signupRequestAction } from '../actions';
 import styled from 'styled-components';
@@ -13,6 +14,20 @@ const ErrorMessage = styled.div`
 
 const Signup = () => {
   const dispatch = useDispatch();
+  const { signupLoading, signupDone, signupError } = useSelector((state) => state.user);
+
+  useEffect(()=>{
+    if(signupDone){
+      Router.push('/');
+    }
+  }, [signupDone]);
+
+  useEffect(()=>{
+    if(signupError){
+      alert(signupError);
+    }
+  }, [signupError]);
+
   const [userEmail, onChangeUserEmail] = useInput('');
   const [userPassword, onChangeUserPassword] = useInput('');
   const [userNickname, onChangeUserNickname] = useInput('');
@@ -87,7 +102,7 @@ const Signup = () => {
             </div>
           </Form.Item>
            <Form.Item >
-             <Button type="primary" htmlType="submit">로그인</Button> 
+             <Button type="primary" htmlType="submit" loading={signupLoading}>가입하기</Button> 
           </Form.Item>
         </Form>
       </AppLayout>
