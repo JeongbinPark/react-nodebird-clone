@@ -11,13 +11,13 @@ import {
 
 
 function loginApi(data){
-	return axios.post('/api/login', data);
+	return axios.post('/user/login', data);
 }
 
 function* login(action){
 	try {
 		//const result = yield call(loginApi, action.data);
-    yield delay(1000);
+		yield delay(1000);
 		yield put({
 			type: LOGIN_SUCCESS,
 			data: action.data
@@ -36,7 +36,7 @@ function* watchLogin(){
 
 
 function logoutApi(){
-	return axios.post('/api/logout');
+	return axios.post('/user/logout');
 }
 
 function* logout(){
@@ -60,7 +60,7 @@ function* watchLogout(){
 
 
 function signupApi(data){
-	return axios.post('http://localhost:3065/user', data);
+	return axios.post('/user', data);
 }
 
 function* signup(action){
