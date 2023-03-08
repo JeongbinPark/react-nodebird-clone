@@ -16,11 +16,10 @@ function loginApi(data){
 
 function* login(action){
 	try {
-		//const result = yield call(loginApi, action.data);
-		yield delay(1000);
+		const result = yield call(loginApi, action.data);
 		yield put({
 			type: LOGIN_SUCCESS,
-			data: action.data
+			data: result.data
 		});
 	} catch (err){
 		yield put({

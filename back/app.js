@@ -5,12 +5,15 @@ const app = express();
 const db = require('./models');
 const postRouter = require('./routes/post');
 const userRouter = require('./routes/user');
+const passportConfig = require('./passport');
 
 db.sequelize.sync()
   .then(()=>{
     console.log("DB connected...");
   })
   .catch(console.error);
+  
+passportConfig();
 
 app.use(cors({
   origin: true,
